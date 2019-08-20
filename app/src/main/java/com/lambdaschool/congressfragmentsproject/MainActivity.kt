@@ -18,9 +18,9 @@ class MainActivity : AppCompatActivity() {
         val allMembers: ArrayList<CongresspersonOverview> = CongressDao.allMembers
 
         // get details for a single member of congress
-        val singleMemberDetails: CongresspersonDetails? = allMembers[0].id?.let { CongressDao.getMemberDetails(it) }
+//        val singleMemberDetails: CongresspersonDetails? = allMembers[0].id?.let { CongressDao.getMemberDetails(it) }
 
         // get congressperson portrait
-        val image: Bitmap? = allMembers[0].id?.let { CongressDao.getImage(it) }
+//        val image: Bitmap? = allMembers[0].id?.let { CongressDao.getImage(it) }
     }
 }
