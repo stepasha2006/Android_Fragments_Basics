@@ -10,16 +10,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.lambdaschool.congressfragmentsproject.api.CongressDao
+import com.lambdaschool.congressfragmentsproject.api.CongressDao.allMembers
+import com.lambdaschool.congressfragmentsproject.api.CongresspersonDetails
 import com.lambdaschool.congressfragmentsproject.api.CongresspersonOverview
-
+import kotlinx.android.synthetic.main.fragment_congressersonoverview_list.*
 
 
 /**
  * A fragment representing a list of Items.
  * Activities containing this fragment MUST implement the
- * [CongressersonOverviewFragment.OnListFragmentInteractionListener] interface.
+ * [CongresspersonOverviewFragment.OnListFragmentInteractionListener] interface.
  */
-class CongressersonOverviewFragment : Fragment() {
+class CongresspersonOverviewFragment : Fragment() {
 
     // TODO: Customize parameters
     private var columnCount = 1
@@ -39,32 +41,21 @@ class CongressersonOverviewFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_congressersonoverview_list, container, false)
-
-        // Set the adapter
         if (view is RecyclerView) {
             with(view) {
                 layoutManager = when {
                     columnCount <= 1 -> LinearLayoutManager(context)
                     else -> GridLayoutManager(context, columnCount)
                 }
-                adapter = MyCongressersonOverviewRecyclerViewAdapter(CongressDao.allMembers, listener)
+                adapter = MyCongressersonOverviewRecyclerViewAdapter(allMembers, listener)
             }
         }
         return view
     }
 
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        if (context is OnListFragmentInteractionListener) {
-            listener = context
-        } else {
-            throw RuntimeException(context.toString() + " must implement OnListFragmentInteractionListener")
-        }
-    }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
-    override fun onDetach() {
-        super.onDetach()
-        listener = null
     }
 
     /**
@@ -91,10 +82,11 @@ class CongressersonOverviewFragment : Fragment() {
         // TODO: Customize parameter initialization
         @JvmStatic
         fun newInstance(columnCount: Int) =
-            CongressersonOverviewFragment().apply {
+            CongresspersonOverviewFragment().apply {
                 arguments = Bundle().apply {
                     putInt(ARG_COLUMN_COUNT, columnCount)
                 }
+
             }
     }
 }
